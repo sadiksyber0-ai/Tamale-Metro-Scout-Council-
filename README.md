@@ -1,1 +1,0 @@
-# Tamale-Metro-Scout-Council-
