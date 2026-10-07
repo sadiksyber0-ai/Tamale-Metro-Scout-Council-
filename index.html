@@ -526,7 +526,30 @@
                         </select>
 
                     </div>
-
+                    <div class="form-group passport-photo-group">
+    <label for="passportPhoto">
+        Passport Picture <span>*</span>
+    </label>
+    <input
+        type="file"
+        id="passportPhoto"
+        name="passport_photo"
+        accept="image/jpeg,image/png,image/webp"
+        capture="environment"
+        required
+    >
+    <small>
+        Upload a clear passport-size photo. JPG, PNG or WEBP only.
+    </small>
+    <div class="passport-preview-container">
+        <img
+            id="passportPreview"
+            src=""
+            alt="Passport photo preview"
+            class="passport-preview"
+        >
+    </div>
+</div>
                 </div>
 
 
