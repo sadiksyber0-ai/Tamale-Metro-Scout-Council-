@@ -375,34 +375,593 @@
         </section>
 
 
-        <!-- JOIN -->
-        <section class="join-section" id="join">
+        <!-- =========================================
+     JOIN SCOUTING APPLICATION
+========================================= -->
 
-            <div class="container join-content">
+<section class="application-section" id="join">
 
-                <div>
-                    <span class="section-label">
-                        BECOME A SCOUT
-                    </span>
+    <div class="container">
 
-                    <h2>
-                        Ready to Be Prepared?
-                    </h2>
+        <div class="section-heading">
 
-                    <p>
-                        Become part of a movement that develops
-                        leadership, friendship, service and adventure.
-                    </p>
+            <span class="section-label">
+                JOIN THE MOVEMENT
+            </span>
+
+            <h2>
+                Join Tamale Metro Scouting
+            </h2>
+
+            <p>
+                Complete the application below to express your
+                interest in becoming part of the Scout Movement.
+            </p>
+
+        </div>
+
+
+        <div class="application-wrapper">
+
+            <div class="application-intro">
+
+                <div class="application-badge">
+                    ⚜
                 </div>
 
-                <a href="#contact" class="join-large-button">
-                    Join Scouting →
-                </a>
+                <h3>
+                    Be Prepared
+                </h3>
+
+                <p>
+                    Scouting gives young people opportunities to
+                    develop leadership, teamwork, practical skills,
+                    confidence and a spirit of service.
+                </p>
+
+                <div class="application-note">
+
+                    <strong>Before you apply</strong>
+
+                    <p>
+                        Please make sure the information you provide
+                        is accurate. A Council representative may
+                        contact you using the information provided.
+                    </p>
+
+                </div>
 
             </div>
 
-        </section>
 
+            <form id="scoutApplicationForm"
+                  class="scout-application-form">
+
+
+                <!-- =========================
+                     PERSONAL INFORMATION
+                ========================== -->
+
+                <div class="form-section-title">
+                    <span>01</span>
+
+                    <div>
+                        <h3>Personal Information</h3>
+                        <p>Tell us about the applicant.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="applicantFullName">
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="applicantFullName"
+                            name="full_name"
+                            placeholder="Enter full name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="dateOfBirth">
+                            Date of Birth *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="dateOfBirth"
+                            name="date_of_birth"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="gender">
+                            Gender *
+                        </label>
+
+                        <select
+                            id="gender"
+                            name="gender"
+                            required
+                        >
+
+                            <option value="">
+                                Select gender
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                            <option value="Prefer not to say">
+                                Prefer not to say
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     CONTACT INFORMATION
+                ========================== -->
+
+                <div class="form-section-title">
+
+                    <span>02</span>
+
+                    <div>
+                        <h3>Contact Information</h3>
+                        <p>How can we contact the applicant?</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="applicantPhone">
+                            Phone Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="applicantPhone"
+                            name="phone"
+                            placeholder="e.g. 024 000 0000"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="applicantEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="applicantEmail"
+                            name="email"
+                            placeholder="example@email.com"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="residentialAddress">
+                            Residential Address *
+                        </label>
+
+                        <textarea
+                            id="residentialAddress"
+                            name="residential_address"
+                            rows="3"
+                            placeholder="Enter residential address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     PARENT / GUARDIAN
+                ========================== -->
+
+                <div class="form-section-title">
+
+                    <span>03</span>
+
+                    <div>
+                        <h3>Parent / Guardian</h3>
+                        <p>
+                            Complete this section where applicable.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="guardianName">
+                            Parent / Guardian Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="guardianName"
+                            name="parent_guardian_name"
+                            placeholder="Full name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="guardianPhone">
+                            Parent / Guardian Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="guardianPhone"
+                            name="parent_guardian_phone"
+                            placeholder="Phone number"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     EMERGENCY CONTACT
+                ========================== -->
+
+                <div class="form-section-title">
+
+                    <span>04</span>
+
+                    <div>
+                        <h3>Emergency Contact</h3>
+                        <p>
+                            Someone the Council can contact in an
+                            emergency.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="emergencyName">
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="emergencyName"
+                            name="emergency_contact_name"
+                            placeholder="Emergency contact name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="emergencyPhone">
+                            Phone Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="emergencyPhone"
+                            name="emergency_contact_phone"
+                            placeholder="Emergency contact phone"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="emergencyRelationship">
+                            Relationship *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="emergencyRelationship"
+                            name="emergency_contact_relationship"
+                            placeholder="e.g. Parent, Guardian, Sibling"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     SCOUT INFORMATION
+                ========================== -->
+
+                <div class="form-section-title">
+
+                    <span>05</span>
+
+                    <div>
+                        <h3>Scout Information</h3>
+                        <p>
+                            Tell us which part of Scouting interests you.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="scoutSection">
+                            Preferred Scout Section *
+                        </label>
+
+                        <select
+                            id="scoutSection"
+                            name="scout_section"
+                            required
+                        >
+
+                            <option value="">
+                                Select a section
+                            </option>
+
+                            <option value="Cub Scouts">
+                                Cub Scouts
+                            </option>
+
+                            <option value="Scouts">
+                                Scouts
+                            </option>
+
+                            <option value="Senior Scouts">
+                                Senior Scouts
+                            </option>
+
+                            <option value="Rovers">
+                                Rovers
+                            </option>
+
+                            <option value="Adult Leader / Volunteer">
+                                Adult Leader / Volunteer
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Have you been a Scout before? *
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option">
+
+                            <input
+                                type="radio"
+                                name="previous_scout_experience"
+                                value="true"
+                                required
+                            >
+
+                            <span>Yes</span>
+
+                        </label>
+
+
+                        <label class="radio-option">
+
+                            <input
+                                type="radio"
+                                name="previous_scout_experience"
+                                value="false"
+                            >
+
+                            <span>No</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="previousScoutDetails">
+                            If yes, tell us about your previous
+                            Scout experience
+                        </label>
+
+                        <textarea
+                            id="previousScoutDetails"
+                            name="previous_scout_details"
+                            rows="4"
+                            placeholder="Previous group, years involved, activities, etc."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="reasonForJoining">
+                            Why do you want to join Scouting? *
+                        </label>
+
+                        <textarea
+                            id="reasonForJoining"
+                            name="reason_for_joining"
+                            rows="5"
+                            placeholder="Tell us why you want to become a Scout..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group form-full">
+
+                        <label for="additionalInformation">
+                            Additional Information
+                        </label>
+
+                        <textarea
+                            id="additionalInformation"
+                            name="additional_information"
+                            rows="4"
+                            placeholder="Anything else you would like the Council to know?"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     CONSENT
+                ========================== -->
+
+                <div class="consent-box">
+
+                    <label class="consent-label">
+
+                        <input
+                            type="checkbox"
+                            id="applicationConsent"
+                            name="consent"
+                            required
+                        >
+
+                        <span>
+                            I confirm that the information provided
+                            in this application is accurate and I
+                            consent to Tamale Metro Scout Council
+                            using it for the purpose of processing
+                            my Scout application. *
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- =========================
+                     FORM MESSAGE
+                ========================== -->
+
+                <div
+                    id="applicationMessage"
+                    class="application-message"
+                ></div>
+
+
+                <!-- =========================
+                     SUBMIT
+                ========================== -->
+
+                <button
+                    type="submit"
+                    id="submitApplication"
+                    class="application-submit"
+                >
+                    Submit Scout Application
+                </button>
+
+
+                <p class="required-note">
+                    * Required fields
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
 
         <!-- GALLERY -->
         <section class="gallery section" id="gallery">
