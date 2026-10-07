@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Admin Dashboard | Tamale Metro Scout Council</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+        .hidden {
+            display: none !important;
+        }
+        /* LOGIN */
+        #loginSection {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+        }
+        .login-card h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #174d2a;
+        }
+        .login-card p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+        button {
+            border: none;
+            cursor: pointer;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #174d2a;
+            color: white;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .login-btn:hover {
+            background: #103b20;
+        }
+        #loginMessage {
+            margin-top: 15px;
+            text-align: center;
+            color: #c62828;
+        }
+        /* DASHBOARD */
+        #dashboardSection {
+            min-height: 100vh;
+        }
+        .topbar {
+            background: #174d2a;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .topbar h1 {
+            font-size: 20px;
+        }
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logout-btn {
+            background: white;
+            color: #174d2a;
+            padding: 9px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .dashboard-container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 25px;
+        }
+        .welcome {
+            margin-bottom: 25px;
+        }
+        .welcome h2 {
+            margin-bottom: 5px;
+        }
+        .welcome p {
+            color: #666;
+        }
+        /* STAT CARDS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+        .stat-card h3 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .stat-card strong {
+            font-size: 30px;
+            color: #174d2a;
+        }
+        /* APPLICATIONS */
+        .applications-card {
+            background: white;
+            border-radius: 10px;
+            padding: 22px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+        .applications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filters input,
+        .filters select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+        th,
+        td {
+            padding: 13px 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        th {
+            background: #f7f7f7;
+            font-size: 14px;
+        }
+        td {
+            font-size: 14px;
+        }
+        .view-btn {
+            background: #174d2a;
+            color: white;
+            padding: 7px 11px;
+            border-radius: 5px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-review {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .status-accepted {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .status-contacted {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            background: #eee;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+        .application-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .detail-box {
+            background: #f7f7f7;
+            padding: 13px;
+            border-radius: 7px;
+        }
+        .detail-box.full {
+            grid-column: 1 / -1;
+        }
+        .detail-box strong {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .passport-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .passport-section img {
+            width: 150px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        .status-update {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .status-update select {
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-right: 8px;
+        }
+        .save-status-btn {
+            background: #174d2a;
+            color: white;
+            padding: 11px 16px;
+            border-radius: 6px;
+        }
+        #dashboardMessage {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        /* MOBILE */
+        @media (max-width: 850px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .application-details {
+                grid-template-columns: 1fr;
+            }
+            .detail-box.full {
+                grid-column: auto;
+            }
+        }
+        @media (max-width: 600px) {
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            .dashboard-container {
+                padding: 15px;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .login-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- =========================
+         ADMIN LOGIN
+    ========================== -->
+    <section id="loginSection">
+        <div class="login-card">
+            <h1>Scout Council</h1>
+            <p>Administrator Login</p>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminEmail">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="adminEmail"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                <button
+                    type="submit"
+                    class="login-btn"
+                    id="loginBtn"
+                >
+                    Login
+                </button>
+            </form>
+            <div id="loginMessage"></div>
+        </div>
+    </section>
+    <!-- =========================
+         ADMIN DASHBOARD
+    ========================== -->
+    <section id="dashboardSection" class="hidden">
+        <header class="topbar">
+            <h1>
+                Tamale Metro Scout Council
+            </h1>
+            <div class="admin-info">
+                <span id="adminName">
+                    Administrator
+                </span>
+                <button
+                    type="button"
+                    class="logout-btn"
+                    id="logoutBtn"
+                >
+                    Logout
+                </button>
+            </div>
+        </header>
+        <main class="dashboard-container">
+            <div class="welcome">
+                <h2>
+                    Admin Dashboard
+                </h2>
+                <p>
+                    Manage scout applications and Council activities.
+                </p>
+            </div>
+            <!-- STATISTICS -->
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Applications</h3>
+                    <strong id="totalApplications">0</strong>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending</h3>
+                    <strong id="pendingApplications">0</strong>
+                </div>
+                <div class="stat-card">
+                    <h3>Accepted</h3>
+                    <strong id="acceptedApplications">0</strong>
+                </div>
+                <div class="stat-card">
+                    <h3>Under Review</h3>
+                    <strong id="reviewApplications">0</strong>
+                </div>
+            </div>
+            <!-- APPLICATIONS -->
+            <div class="applications-card">
+                <div class="applications-header">
+                    <h2>
+                        Scout Applications
+                    </h2>
+                    <div class="filters">
+                        <input
+                            type="search"
+                            id="applicationSearch"
+                            placeholder="Search name or application number..."
+                        >
+                        <select id="statusFilter">
+                            <option value="all">
+                                All Statuses
+                            </option>
+                            <option value="Pending">
+                                Pending
+                            </option>
+                            <option value="Under Review">
+                                Under Review
+                            </option>
+                            <option value="Accepted">
+                                Accepted
+                            </option>
+                            <option value="Rejected">
+                                Rejected
+                            </option>
+                            <option value="Contacted">
+                                Contacted
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div id="dashboardMessage"></div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Application No.</th>
+                                <th>Name</th>
+                                <th>Section</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTableBody">
+                            <tr>
+                                <td colspan="7">
+                                    Loading applications...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </section>
+    <!-- =========================
+         APPLICATION MODAL
+    ========================== -->
+    <div
+        class="modal hidden"
+        id="applicationModal"
+    >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    Application Details
+                </h2>
+                <button
+                    type="button"
+                    class="close-btn"
+                    id="closeModalBtn"
+                >
+                    ×
+                </button>
+            </div>
+            <div class="passport-section">
+                <img
+                    id="applicationPassport"
+                    src=""
+                    alt="Applicant passport photo"
+                >
+            </div>
+            <div
+                class="application-details"
+                id="applicationDetails"
+            >
+            </div>
+            <div class="status-update">
+                <label for="applicationStatus">
+                    <strong>Update Status</strong>
+                </label>
+                <select id="applicationStatus">
+                    <option value="Pending">
+                        Pending
+                    </option>
+                    <option value="Under Review">
+                        Under Review
+                    </option>
+                    <option value="Accepted">
+                        Accepted
+                    </option>
+                    <option value="Rejected">
+                        Rejected
+                    </option>
+                    <option value="Contacted">
+                        Contacted
+                    </option>
+                </select>
+                <button
+                    type="button"
+                    class="save-status-btn"
+                    id="saveStatusBtn"
+                >
+                    Save Status
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- SUPABASE / ADMIN SCRIPT -->
+    <script type="module">
+        import { createClient }
+            from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+        const SUPABASE_URL =
+            "https://ybapswllwfaiiailgmsw.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_h-7SnGjr8G8ieshdahYglw_OIYW0iSe";
+        const supabase = createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+        /* =========================
+           ELEMENTS
+        ========================== */
+        const loginSection =
+            document.getElementById("loginSection");
+        const dashboardSection =
+            document.getElementById("dashboardSection");
+        const adminLoginForm =
+            document.getElementById("adminLoginForm");
+        const adminEmail =
+            document.getElementById("adminEmail");
+        const adminPassword =
+            document.getElementById("adminPassword");
+        const loginBtn =
+            document.getElementById("loginBtn");
+        const loginMessage =
+            document.getElementById("loginMessage");
+        const logoutBtn =
+            document.getElementById("logoutBtn");
+        const adminName =
+            document.getElementById("adminName");
+        const dashboardMessage =
+            document.getElementById("dashboardMessage");
+        const applicationsTableBody =
+            document.getElementById("applicationsTableBody");
+        const applicationSearch =
+            document.getElementById("applicationSearch");
+        const statusFilter =
+            document.getElementById("statusFilter");
+        const totalApplications =
+            document.getElementById("totalApplications");
+        const pendingApplications =
+            document.getElementById("pendingApplications");
+        const acceptedApplications =
+            document.getElementById("acceptedApplications");
+        const reviewApplications =
+            document.getElementById("reviewApplications");
+        const applicationModal =
+            document.getElementById("applicationModal");
+        const closeModalBtn =
+            document.getElementById("closeModalBtn");
+        const applicationDetails =
+            document.getElementById("applicationDetails");
+        const applicationPassport =
+            document.getElementById("applicationPassport");
+        const applicationStatus =
+            document.getElementById("applicationStatus");
+        const saveStatusBtn =
+            document.getElementById("saveStatusBtn");
+        let applications = [];
+        let selectedApplicationId = null;
+        /* =========================
+           LOGIN
+        ========================== */
+        adminLoginForm.addEventListener(
+            "submit",
+            async function (event) {
+                event.preventDefault();
+                loginMessage.textContent = "";
+                loginBtn.disabled = true;
+                loginBtn.textContent = "Logging in...";
+                const email =
+                    adminEmail.value.trim();
+                const password =
+                    adminPassword.value;
+                const {
+                    data,
+                    error
+                } = await supabase.auth.signInWithPassword({
+                    email,
+                    password
+                });
+                if (error) {
+                    loginMessage.textContent =
+                        error.message;
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = "Login";
+                    return;
+                }
+                const user =
+                    data.user;
+                const {
+                    data: admin,
+                    error: adminError
+                } = await supabase
+                    .from("admin_users")
+                    .select("full_name, email")
+                    .eq("id", user.id)
+                    .maybeSingle();
+                if (adminError || !admin) {
+                    await supabase.auth.signOut();
+                    loginMessage.textContent =
+                        "Access denied. This account is not an administrator.";
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = "Login";
+                    return;
+                }
+                showDashboard(admin.full_name);
+            }
+        );
+        /* =========================
+           SHOW DASHBOARD
+        ========================== */
+        function showDashboard(name) {
+            loginSection.classList.add("hidden");
+            dashboardSection.classList.remove("hidden");
+            adminName.textContent =
+                name || "Administrator";
+            loadApplications();
+        }
+        /* =========================
+           CHECK EXISTING SESSION
+        ========================== */
+        async function checkSession() {
+            const {
+                data: {
+                    session
+                }
+            } = await supabase.auth.getSession();
+            if (!session) {
+                return;
+            }
+            const {
+                data: admin
+            } = await supabase
+                .from("admin_users")
+                .select("full_name, email")
+                .eq("id", session.user.id)
+                .maybeSingle();
+            if (!admin) {
+                await supabase.auth.signOut();
+                return;
+            }
+            showDashboard(admin.full_name);
+        }
+        /* =========================
+           LOAD APPLICATIONS
+        ========================== */
+        async function loadApplications() {
+            applicationsTableBody.innerHTML =
+                `<tr>
+                    <td colspan="7">
+                        Loading applications...
+                    </td>
+                </tr>`;
+            const {
+                data,
+                error
+            } = await supabase
+                .from("scout_applications")
+                .select("*")
+                .order("created_at", {
+                    ascending: false
+                });
+            if (error) {
+                applicationsTableBody.innerHTML =
+                    `<tr>
+                        <td colspan="7">
+                            Unable to load applications.
+                        </td>
+                    </tr>`;
+                dashboardMessage.textContent =
+                    error.message;
+                return;
+            }
+            applications =
+                data || [];
+            updateStatistics();
+            renderApplications();
+        }
+        /* =========================
+           STATISTICS
+        ========================== */
+        function updateStatistics() {
+            totalApplications.textContent =
+                applications.length;
+            pendingApplications.textContent =
+                applications.filter(
+                    app => app.status === "Pending"
+                ).length;
+            acceptedApplications.textContent =
+                applications.filter(
+                    app => app.status === "Accepted"
+                ).length;
+            reviewApplications.textContent =
+                applications.filter(
+                    app => app.status === "Under Review"
+                ).length;
+        }
+        /* =========================
+           RENDER APPLICATIONS
+        ========================== */
+        function renderApplications() {
+            const search =
+                applicationSearch.value
+                    .trim()
+                    .toLowerCase();
+            const status =
+                statusFilter.value;
+            const filtered =
+                applications.filter(app => {
+                    const matchesSearch =
+                        !search ||
+                        (app.full_name || "")
+                            .toLowerCase()
+                            .includes(search) ||
+                        (app.application_number || "")
+                            .toLowerCase()
+                            .includes(search);
+                    const matchesStatus =
+                        status === "all" ||
+                        app.status === status;
+                    return (
+                        matchesSearch &&
+                        matchesStatus
+                    );
+                });
+            if (filtered.length === 0) {
+                applicationsTableBody.innerHTML =
+                    `<tr>
+                        <td colspan="7">
+                            No applications found.
+                        </td>
+                    </tr>`;
+                return;
+            }
+            applicationsTableBody.innerHTML =
+                filtered.map(app => {
+                    const date =
+                        app.created_at
+                            ? new Date(
+                                app.created_at
+                            ).toLocaleDateString()
+                            : "-";
+                    return `
+                        <tr>
+                            <td>
+                                ${escapeHtml(
+                                    app.application_number || "-"
+                                )}
+                            </td>
+                            <td>
+                                ${escapeHtml(
+                                    app.full_name || "-"
+                                )}
+                            </td>
+                            <td>
+                                ${escapeHtml(
+                                    app.scout_section || "-"
+                                )}
+                            </td>
+                            <td>
+                                ${escapeHtml(
+                                    app.phone || "-"
+                                )}
+                            </td>
+                            <td>
+                                ${getStatusBadge(
+                                    app.status
+                                )}
+                            </td>
+                            <td>
+                                ${date}
+                            </td>
+                            <td>
+                                <button
+                                    class="view-btn"
+                                    data-id="${app.id}"
+                                >
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join("");
+            document
+                .querySelectorAll(".view-btn")
+                .forEach(button => {
+                    button.addEventListener(
+                        "click",
+                        function () {
+                            const id =
+                                this.dataset.id;
+                            openApplication(id);
+                        }
+                    );
+                });
+        }
+        /* =========================
+           STATUS BADGE
+        ========================== */
+        function getStatusBadge(status) {
+            const classes = {
+                "Pending":
+                    "status-pending",
+                "Under Review":
+                    "status-review",
+                "Accepted":
+                    "status-accepted",
+                "Rejected":
+                    "status-rejected",
+                "Contacted":
+                    "status-contacted"
+            };
+            const className =
+                classes[status] ||
+                "status-pending";
+            return `
+                <span class="status ${className}">
+                    ${escapeHtml(status || "Pending")}
+                </span>
+            `;
+        }
+        /* =========================
+           OPEN APPLICATION
+        ========================== */
+        async function openApplication(id) {
+            const app =
+                applications.find(
+                    item => item.id === id
+                );
+            if (!app) {
+                return;
+            }
+            selectedApplicationId =
+                app.id;
+            applicationStatus.value =
+                app.status;
+            applicationDetails.innerHTML = `
+                <div class="detail-box">
+                    <strong>Application Number</strong>
+                    ${escapeHtml(
+                        app.application_number || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Full Name</strong>
+                    ${escapeHtml(
+                        app.full_name || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Date of Birth</strong>
+                    ${escapeHtml(
+                        app.date_of_birth || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Gender</strong>
+                    ${escapeHtml(
+                        app.gender || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Phone</strong>
+                    ${escapeHtml(
+                        app.phone || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Email</strong>
+                    ${escapeHtml(
+                        app.email || "-"
+                    )}
+                </div>
+                <div class="detail-box full">
+                    <strong>Residential Address</strong>
+                    ${escapeHtml(
+                        app.residential_address || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Parent / Guardian</strong>
+                    ${escapeHtml(
+                        app.parent_guardian_name || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Guardian Phone</strong>
+                    ${escapeHtml(
+                        app.parent_guardian_phone || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Emergency Contact</strong>
+                    ${escapeHtml(
+                        app.emergency_contact_name || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Emergency Phone</strong>
+                    ${escapeHtml(
+                        app.emergency_contact_phone || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Relationship</strong>
+                    ${escapeHtml(
+                        app.emergency_contact_relationship || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Scout Section</strong>
+                    ${escapeHtml(
+                        app.scout_section || "-"
+                    )}
+                </div>
+                <div class="detail-box">
+                    <strong>Previous Scout Experience</strong>
+                    ${
+                        app.previous_scout_experience
+                            ? "Yes"
+                            : "No"
+                    }
+                </div>
+                <div class="detail-box full">
+                    <strong>Previous Scout Details</strong>
+                    ${escapeHtml(
+                        app.previous_scout_details || "-"
+                    )}
+                </div>
+                <div class="detail-box full">
+                    <strong>Reason for Joining</strong>
+                    ${escapeHtml(
+                        app.reason_for_joining || "-"
+                    )}
+                </div>
+                <div class="detail-box full">
+                    <strong>Additional Information</strong>
+                    ${escapeHtml(
+                        app.additional_information || "-"
+                    )}
+                </div>
+            `;
+            /*
+                Passport photos are stored in a PRIVATE
+                Supabase Storage bucket.
+                We will add secure signed URLs next.
+            */
+            applicationPassport.src = "";
+            applicationPassport.alt =
+                "Passport photo";
+            applicationModal.classList.remove(
+                "hidden"
+            );
+        }
+        /* =========================
+           UPDATE STATUS
+        ========================== */
+        saveStatusBtn.addEventListener(
+            "click",
+            async function () {
+                if (!selectedApplicationId) {
+                    return;
+                }
+                saveStatusBtn.disabled = true;
+                saveStatusBtn.textContent =
+                    "Saving...";
+                const newStatus =
+                    applicationStatus.value;
+                const {
+                    error
+                } = await supabase
+                    .from("scout_applications")
+                    .update({
+                        status: newStatus,
+                        updated_at:
+                            new Date().toISOString()
+                    })
+                    .eq(
+                        "id",
+                        selectedApplicationId
+                    );
+                if (error) {
+                    alert(
+                        "Unable to update status: " +
+                        error.message
+                    );
+                } else {
+                    const app =
+                        applications.find(
+                            item =>
+                                item.id ===
+                                selectedApplicationId
+                        );
+                    if (app) {
+                        app.status =
+                            newStatus;
+                    }
+                    updateStatistics();
+                    renderApplications();
+                    alert(
+                        "Application status updated successfully."
+                    );
+                }
+                saveStatusBtn.disabled = false;
+                saveStatusBtn.textContent =
+                    "Save Status";
+            }
+        );
+        /* =========================
+           SEARCH / FILTER
+        ========================== */
+        applicationSearch.addEventListener(
+            "input",
+            renderApplications
+        );
+        statusFilter.addEventListener(
+            "change",
+            renderApplications
+        );
+        /* =========================
+           CLOSE MODAL
+        ========================== */
+        closeModalBtn.addEventListener(
+            "click",
+            function () {
+                applicationModal.classList.add(
+                    "hidden"
+                );
+                selectedApplicationId =
+                    null;
+            }
+        );
+        applicationModal.addEventListener(
+            "click",
+            function (event) {
+                if (
+                    event.target ===
+                    applicationModal
+                ) {
+                    applicationModal.classList.add(
+                        "hidden"
+                    );
+                    selectedApplicationId =
+                        null;
+                }
+            }
+        );
+        /* =========================
+           LOGOUT
+        ========================== */
+        logoutBtn.addEventListener(
+            "click",
+            async function () {
+                await supabase.auth.signOut();
+                dashboardSection.classList.add(
+                    "hidden"
+                );
+                loginSection.classList.remove(
+                    "hidden"
+                );
+                adminPassword.value = "";
+                applications = [];
+            }
+        );
+        /* =========================
+           HTML SECURITY
+        ========================== */
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+        /* =========================
+           START
+        ========================== */
+        checkSession();
+    </script>
+</body>
+</html>
