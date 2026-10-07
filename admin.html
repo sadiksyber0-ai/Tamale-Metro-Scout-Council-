@@ -1005,13 +1005,40 @@
                 Passport photos are stored in a PRIVATE
                 Supabase Storage bucket.
                 We will add secure signed URLs next.
-            */
-            applicationPassport.src = "";
-            applicationPassport.alt =
-                "Passport photo";
-            applicationModal.classList.remove(
-                "hidden"
-            );
+           /* =========================
+   SECURE PASSPORT PHOTO
+========================= */
+
+applicationPassport.src = "";
+
+applicationPassport.alt =
+    "Passport photo";
+
+if (app.passport_photo_url) {
+
+    const {
+        data: signedUrlData,
+        error: signedUrlError
+    } = await supabase.storage
+        .from("passport-photos")
+        .createSignedUrl(
+            app.passport_photo_url,
+            300
+        );
+
+    if (!signedUrlError && signedUrlData?.signedUrl) {
+
+        applicationPassport.src =
+            signedUrlData.signedUrl;
+
+    } else {
+
+        console.error(
+            "Unable to load passport photo:",
+            signedUrlError
+        );
+    }
+}
         }
         /* =========================
            UPDATE STATUS
