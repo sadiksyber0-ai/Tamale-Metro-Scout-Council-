@@ -944,6 +944,8 @@ saveNotesBtn.addEventListener("click", async function () {
             }
             selectedApplicationId =
                 app.id;
+            adminNotes.value = app.admin_notes || "";
+notesMessage.textContent = "";
             applicationStatus.value =
                 app.status;
             applicationDetails.innerHTML = `
