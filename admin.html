@@ -524,6 +524,25 @@
                 id="applicationDetails"
             >
             </div>
+            <div class="admin-notes-section" style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd;">
+    <label for="adminNotes"><strong>Private Admin Notes</strong></label>
+    <textarea
+        id="adminNotes"
+        rows="4"
+        placeholder="Record calls, interviews, follow-ups or other relevant notes..."
+        style="display:block; width:100%; padding:12px; margin-top:10px; border:1px solid #ccc; border-radius:7px; resize:vertical;"
+    ></textarea>
+    <button
+        type="button"
+        id="saveNotesBtn"
+        class="save-status-btn"
+        style="margin-top:10px;"
+    >
+        Save Notes
+    </button>
+    <p id="notesMessage" style="margin-top:10px;" aria-live="polite"></p>
+</div>
+            
             <div class="status-update">
                 <label for="applicationStatus">
                     <strong>Update Status</strong>
