@@ -637,6 +637,38 @@
             document.getElementById("saveStatusBtn");
         let applications = [];
         let selectedApplicationId = null;
+        const adminNotes = document.getElementById("adminNotes");
+const saveNotesBtn = document.getElementById("saveNotesBtn");
+const notesMessage = document.getElementById("notesMessage");
+saveNotesBtn.addEventListener("click", async function () {
+    if (!selectedApplicationId) {
+        notesMessage.textContent = "Select an application first.";
+        return;
+    }
+    saveNotesBtn.disabled = true;
+    saveNotesBtn.textContent = "Saving...";
+    notesMessage.textContent = "";
+    const { error } = await supabase
+        .from("scout_applications")
+        .update({
+            admin_notes: adminNotes.value.trim()
+        })
+        .eq("id", selectedApplicationId);
+    saveNotesBtn.disabled = false;
+    saveNotesBtn.textContent = "Save Notes";
+    if (error) {
+        notesMessage.textContent = "Could not save notes: " + error.message;
+        return;
+    }
+    const app = applications.find(
+        item => item.id === selectedApplicationId
+    );
+    if (app) {
+        app.admin_notes = adminNotes.value.trim();
+    }
+    notesMessage.textContent = "Notes saved successfully.";
+});
+        
         /* =========================
            LOGIN
         ========================== */
