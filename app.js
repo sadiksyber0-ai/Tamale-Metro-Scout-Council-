@@ -297,17 +297,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         );
                 if (uploadError) {
-                    console.error(
-                        "Passport photo upload error:",
-                        uploadError
-                    );
-                    showApplicationMessage(
-                        "The passport picture could not be uploaded. Please try again.",
-                        "error"
-                    );
-                    resetSubmitButton();
-                    return;
-                }
+    console.error("Passport photo upload error:", uploadError);
+    showApplicationMessage(
+        "Photo upload failed: " + uploadError.message,
+        "error"
+    );
+    resetSubmitButton();
+    return;
+}
                 // --------------------------------
                 // SAVE APPLICATION
                 // --------------------------------
